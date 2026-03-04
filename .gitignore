@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment
+venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Training data
+HAM10000_images_part_1/
+HAM10000_images_part_2/
+HAM10000_metadata.csv
+
+# Logs
+*.log
+
+# Streamlit cache
+.streamlit/secrets.toml
