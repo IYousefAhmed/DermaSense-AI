@@ -1,27 +1,55 @@
+# =========================
 # Python
+# =========================
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 
-# Environment
+# =========================
+# Virtual Environment
+# =========================
 venv/
 .env
 
-# Jupyter
+# =========================
+# Jupyter Notebook
+# =========================
 .ipynb_checkpoints/
 
+# =========================
 # System files
+# =========================
 .DS_Store
 Thumbs.db
 
-# Training data
+# =========================
+# Training / Dataset files
+# =========================
+training/
 HAM10000_images_part_1/
 HAM10000_images_part_2/
 HAM10000_metadata.csv
 
+# =========================
 # Logs
+# =========================
 *.log
 
-# Streamlit cache
+# =========================
+# Streamlit secrets
+# =========================
 .streamlit/secrets.toml
+
+# =========================
+# Model training outputs
+# =========================
+*.ckpt
+*.h5
+*.pkl
+
+# =========================
+# Temporary files
+# =========================
+*.tmp
+*.temp
