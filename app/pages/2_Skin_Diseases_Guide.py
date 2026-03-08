@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.title("Skin Diseases Guide")
+st.title("🩺 Skin Diseases Guide")
 
 st.write("Overview of the seven skin lesion classes used in the AI model.")
 

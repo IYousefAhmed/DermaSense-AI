@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.title("DermaSense AI")
+st.title("📘 Project Information")
 
 st.subheader("About The Project")
 

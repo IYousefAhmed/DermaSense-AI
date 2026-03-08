@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.title("AI Model Information")
+st.title("🤖 AI Model Information")
 
 st.subheader("Model Architecture")
 
