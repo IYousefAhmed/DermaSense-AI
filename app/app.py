@@ -8,6 +8,7 @@ import altair as alt
 import os
 import base64
 import io
+import json
 from datetime import datetime
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
@@ -28,8 +29,18 @@ st.set_page_config(
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-MODEL_PATH = os.path.join(BASE_DIR,"..","models","skin_cancer_resnet50.pth")
+MODEL_PATH = os.path.join(BASE_DIR,"..","models","skin_cancer_efficientnet.pth")
+
+CLASS_PATH = os.path.join(BASE_DIR,"..","models","class_names.json")
+
 LOGO_PATH = os.path.join(BASE_DIR,"..","static","logo.png")
+
+# =====================================
+# LOAD CLASS NAMES
+# =====================================
+
+with open(CLASS_PATH,"r") as f:
+    class_names = json.load(f)
 
 # =====================================
 # DARK UI STYLE
@@ -109,9 +120,11 @@ def load_model():
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    model = models.resnet50(weights=None)
+    model = models.efficientnet_b0(weights=None)
 
-    model.fc = torch.nn.Linear(model.fc.in_features,7)
+    num_features = model.classifier[1].in_features
+
+    model.classifier[1] = torch.nn.Linear(num_features,len(class_names))
 
     model.load_state_dict(torch.load(MODEL_PATH,map_location=device))
 
@@ -137,10 +150,8 @@ transform = transforms.Compose([
 ])
 
 # =====================================
-# CLASSES
+# CLASS DETAILS
 # =====================================
-
-class_names = ["nv","mel","bkl","bcc","akiec","vasc","df"]
 
 class_details = {
 
@@ -226,7 +237,7 @@ def generate_pdf(label,confidence):
 left,right = st.columns([1,1])
 
 # =====================================
-# IMAGE UPLOAD
+# IMAGE UPLOAD (SECURE VERSION)
 # =====================================
 
 with left:
@@ -238,11 +249,28 @@ with left:
     type=["jpg","png","jpeg"]
     )
 
+    image = None
+
     if uploaded_file:
 
-        image = Image.open(uploaded_file).convert("RGB")
+        # منع الملفات الكبيرة
+        if uploaded_file.size > 5 * 1024 * 1024:
+            st.error("File too large. Maximum size is 5MB.")
 
-        st.image(image,width=420)
+        else:
+
+            try:
+
+                # التأكد ان الملف صورة حقيقية
+                image = Image.open(uploaded_file)
+                image.verify()
+
+                image = Image.open(uploaded_file).convert("RGB")
+
+                st.image(image,width=420)
+
+            except:
+                st.error("Invalid image file. Please upload a valid image.")
 
 # =====================================
 # AI ANALYSIS
@@ -250,7 +278,7 @@ with left:
 
 with right:
 
-    if uploaded_file:
+    if image is not None:
 
         st.subheader("AI Analysis")
 
@@ -278,8 +306,6 @@ with right:
             color = "#f59e0b"
         else:
             color = "#22c55e"
-
-        # RESULT CARD
 
         st.markdown(f"""
         <div style="
@@ -310,10 +336,6 @@ with right:
         """,unsafe_allow_html=True)
 
         st.progress(float(confidence)/100)
-
-        # =====================================
-        # CHART
-        # =====================================
 
         df = pd.DataFrame({
             "Class":class_names,
@@ -362,22 +384,13 @@ with right:
 
         st.altair_chart(chart,use_container_width=True)
 
-        # =====================================
-        # PDF DOWNLOAD
-        # =====================================
-
         pdf = generate_pdf(label,confidence)
 
         st.download_button(
-
         "Download Medical Report",
-
         pdf,
-
         "DermaSense_Report.pdf",
-
         "application/pdf"
-
         )
 
 # =====================================
