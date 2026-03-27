@@ -149,7 +149,6 @@ streamlit run app/Home.py
 * F1-score
 * Confusion Matrix
 
-(Add your results here)
 
 ---
 
