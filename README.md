@@ -12,7 +12,7 @@ The system integrates a deep learning model with an interactive web interface to
 
 # 🚀 Live Demo
 
-🔗 https://dermasense-ai-mxnxfmeng46zuwbdjqk9d7.streamlit.app/
+🔗 https://iyousefahmed-dermasense-ai.hf.space/
 
 ---
 
