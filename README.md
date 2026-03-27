@@ -1,164 +1,190 @@
 # 🧬 DermaSense AI
 
-## Clinical Skin Lesion Risk Analysis using Deep Learning (ResNet50)
+## AI-Powered Skin Lesion Analysis System
 
-DermaSense AI is a production-ready, AI-powered web application designed to classify dermoscopic skin lesion images using a fine-tuned ResNet50 deep learning model.
+DermaSense AI is a full-stack AI-powered web application designed to analyze dermoscopic skin lesion images and provide automated classification with risk assessment.
 
-The system provides automated risk assessment with confidence scoring and probability distribution visualization to support early-stage diagnostic assistance.
+The system integrates a deep learning model with an interactive web interface to deliver real-time predictions, confidence scores, and visual insights.
 
-> ⚠️ This system is intended for research and educational purposes only. It does not replace professional medical diagnosis.
+> ⚠️ Disclaimer: This system is intended for educational and research purposes only and does not replace professional medical diagnosis.
 
 ---
 
 # 🚀 Live Demo
 
-(Coming Soon – Public Deployment Link)
+🔗 https://dermasense-ai-mxnxfmeng46zuwbdjqk9d7.streamlit.app/
 
 ---
 
-# 🧠 Model Overview
+# 🧠 System Overview
 
-The model is based on **ResNet50 (Transfer Learning)** with a custom classification head.
+The system follows an end-to-end pipeline:
 
-### Architecture Details:
-- Backbone: ResNet50 (pretrained on ImageNet)
-- Input Size: 224 × 224
-- Output Classes: 7 (HAM10000 dataset)
-- Activation: Softmax
-- Loss Function: CrossEntropyLoss
-- Optimizer: Adam
-- Training Strategy: Feature Extraction (Frozen Backbone)
+* User uploads image via web interface
+* Image is validated and preprocessed
+* AI model performs classification
+* Results are visualized with probabilities
+* Optional PDF report is generated
 
-### Target Classes:
-- nv – Melanocytic Nevi
-- mel – Melanoma
-- bkl – Benign Keratosis
-- bcc – Basal Cell Carcinoma
-- akiec – Actinic Keratoses
-- vasc – Vascular Lesion
-- df – Dermatofibroma
+---
+
+# 🔥 Key Features
+
+* Real-time skin lesion classification
+* Deep learning model (EfficientNet-B0)
+* Confidence score & risk level
+* Probability distribution chart
+* Downloadable clinical-style PDF report
+* Educational skin disease guide
+* Multi-page interactive UI (Streamlit)
+
+---
+
+# 🧠 AI Model
+
+* Architecture: EfficientNet-B0
+* Framework: PyTorch
+* Input Size: 224 × 224
+* Output: 7 skin disease classes
+* Activation: Softmax
+* Loss Function: CrossEntropyLoss
+* Optimizer: Adam
+
+---
+
+# 🎯 Target Classes
+
+* nv – Melanocytic Nevi
+* mel – Melanoma
+* bkl – Benign Keratosis
+* bcc – Basal Cell Carcinoma
+* akiec – Actinic Keratoses
+* vasc – Vascular Lesion
+* df – Dermatofibroma
 
 ---
 
 # 📊 Dataset
 
-Dataset used: **HAM10000 – Human Against Machine with 10000 training images**
+HAM10000 Dataset
 
-- 7 skin lesion categories
-- Stratified train/validation/test split
-- Data augmentation applied:
-  - Horizontal flipping
-  - Rotation
-  - Normalization
+* 10,000 dermoscopic images
+* 7 classification categories
+* Data augmentation:
 
----
-
-# 🔐 Security Considerations
-
-- File type validation (JPG / PNG)
-- Maximum file size limit (5MB)
-- Image integrity verification
-- No permanent image storage
-- Secure model loading
+  * Rotation
+  * Horizontal flipping
+  * Normalization
 
 ---
 
-# 🛠 Tech Stack
+# 🏗 System Architecture
 
-- Python 3.10+
-- PyTorch
-- Torchvision
-- Streamlit
-- Pandas
-- NumPy
-- Altair
-- Git & GitHub
+The system consists of multiple components:
+
+* Web Interface (Streamlit)
+* Image Processing Module
+* AI Model (EfficientNet)
+* Visualization Module (Altair)
+* Report Generator (PDF)
 
 ---
 
 # 📂 Project Structure
+
+```
 DermaSense-AI/
 │
 ├── app/
-│ └── app.py
+│   ├── Home.py
+│   └── pages/
+│       ├── 1_Project_Info.py
+│       ├── 2_Skin_Diseases_Guide.py
+│       ├── 3_Model_Info.py
+│       ├── 4_AI_Explanation.py
+│       └── 5_How_to_Use.py
 │
 ├── models/
-│ └── skin_cancer_resnet50.pth
+│   ├── class_names.json
+│   └── skin_cancer_efficientnet.pth
 │
 ├── training/
-│ └── train_model.py
+│   └── train_model.py
 │
 ├── static/
-│ └── logo.png
-│
-├── docs/
+│   └── logo.png
 │
 ├── requirements.txt
 └── README.md
-
+```
 
 ---
 
-# ⚙️ Installation & Setup
-
-### 1️⃣ Clone Repository
+# ⚙️ Installation
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/DermaSense-AI.git
+git clone https://github.com/IYousefAhmed/DermaSense-AI.git
 cd DermaSense-AI
-2️⃣ Install Dependencies
 pip install -r requirements.txt
-3️⃣ Run Application
-streamlit run app/app.py
+streamlit run app/Home.py
+```
 
-The application will run locally at:
+---
 
-http://localhost:8501
-📈 Model Performance
+# 🔐 Security
 
-Evaluation Metrics:
+* File type validation (JPG, PNG, JPEG)
+* File size limitation
+* Input validation
+* No persistent image storage
+* Error handling mechanisms
 
-Accuracy
+---
 
-Precision
+# 📈 Evaluation Metrics
 
-Recall
+* Accuracy
+* Precision
+* Recall
+* F1-score
+* Confusion Matrix
 
-F1-Score
+(Add your results here)
 
-Confusion Matrix
+---
 
-(You can add your final accuracy value here.)
+# 🌍 Deployment
 
-🌍 Deployment
+* Streamlit Cloud
+* Hugging Face Spaces
+* GitHub (Version Control)
 
-This application can be deployed using:
+---
 
-Streamlit Cloud
+# 🔮 Future Enhancements
 
-Render
+* REST API for integration
+* User authentication system
+* Prediction history tracking
+* Explainable AI (Grad-CAM)
+* Docker containerization
+* CI/CD pipeline
 
-VPS + Nginx
+---
 
-Docker containerization
+# 👨‍💻 Author
 
-🔮 Future Enhancements
-
-User authentication system
-
-Prediction history tracking
-
-PDF medical-style report generation
-
-REST API endpoint
-
-Docker support
-
-CI/CD integration
-
-Cloud deployment with custom domain
-
-👨‍💻 Author
-
-Developed by Yousef
+**Yousef Ahmed**
 AI & Cybersecurity Enthusiast
+
+---
+
+# ⭐ Contribution
+
+Feel free to fork the project, open issues, or submit pull requests.
+
+---
+
+# 📌 Note
+
+This project demonstrates the integration of Artificial Intelligence with web applications for medical image analysis and is intended as a practical implementation of applied deep learning systems.
